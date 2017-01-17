@@ -1,6 +1,9 @@
+package com.connect4.model;
+
 import groovy.transform.builder.Builder;
 
 @Builder
-public class Coin {
+public class Player {
+
     private Color color;
 }

@@ -1,3 +1,5 @@
+package com.connect4.model;
+
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 

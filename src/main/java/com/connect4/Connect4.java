@@ -1,12 +1,14 @@
+package com.connect4;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-@ComponentScan({"com.jojo.connect4"})
+@ComponentScan({"com.connect4"})
 @SpringBootApplication
-public class Application {
+public class Connect4 {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(Connect4.class, args);
     }
 }

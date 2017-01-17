@@ -1,3 +1,5 @@
+package com.connect4.model;
+
 import groovy.transform.builder.Builder;
 import lombok.Getter;
 
@@ -5,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Builder
 @Getter
+@Builder
 public class Game {
 
     public static final int GRID_SIZE = 15;
@@ -24,4 +26,6 @@ public class Game {
     public void setPlayers(List<Player> players) {
         this.players = players;
     }
+
+
 }
