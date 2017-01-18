@@ -10,6 +10,7 @@ public class Game {
 
     private String gameId;
     private Coin[][] grid;
+    private State state;
     private List<Player> players;
 
     public Game() {
