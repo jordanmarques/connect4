@@ -13,28 +13,47 @@ public class GameService {
     public static Integer WINNING_SUIT = 4;
 
 
-    public Boolean checkVerticallyForAGivenColor(Game game, Color color) {
+    public Boolean checkHorizontallyForAGivenColor(Game game, Color color) {
 
-        return Arrays.stream(game.getGrid())
-                .map(coins -> countVerticallyColorSuit(coins, color))
-                .filter(suit -> suit >= WINNING_SUIT)
-                .findFirst()
-                .isPresent();
-    }
+        Integer counter = 0;
 
-    public Integer countVerticallyColorSuit(Coin[] coins, Color color){
-        Integer suitCounter = 0;
-
-        for(Coin coin : coins) {
-            if(coin != null){
-                if( coin.getColor().name().equals(color.name()) ){
-                    suitCounter ++;
+        for(int i = 0; i < game.getGrid().length; i++){
+            for(int j = 0; j < game.getGrid()[i].length; j++){
+                Coin coin = game.getGrid()[i][j];
+                if(coin != null && coin.getColor().name().equals(color.name())){
+                    counter ++;
+                    if(counter >= WINNING_SUIT){
+                        return true;
+                    }
                 }else{
-                    suitCounter = 0;
+                    counter = 0;
                 }
             }
+
         }
-        return suitCounter;
+
+        return false;
     }
 
+    public boolean checkVerticallyForAGivenColor(Game game, Color color) {
+
+        Integer counter = 0;
+
+        for(int i = 0; i < game.getGrid().length; i++){
+            for(int j = 0; j < game.getGrid()[i].length; j++){
+                Coin coin = game.getGrid()[j][i];
+                if(coin != null && coin.getColor().name().equals(color.name())){
+                    counter ++;
+                    if(counter >= WINNING_SUIT){
+                        return true;
+                    }
+                }else{
+                    counter = 0;
+                }
+            }
+
+        }
+
+        return false;
+    }
 }

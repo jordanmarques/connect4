@@ -1,14 +1,9 @@
 package com.connect4.model;
 
-import groovy.transform.builder.Builder;
-import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Getter
-@Builder
 public class Game {
 
     public static final int GRID_SIZE = 15;
@@ -28,4 +23,11 @@ public class Game {
     }
 
 
+    public Coin[][] getGrid() {
+        return grid;
+    }
+
+    public String getGameId() {
+        return gameId;
+    }
 }

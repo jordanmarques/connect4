@@ -19,33 +19,6 @@ public class GameServiceTest {
     @Autowired
     GameService gameService;
 
-
-    @Test
-    public void should_count_a_suit_of_4_coins(){
-        Coin[] coins = new Coin[]{
-            Coin.newCoin().color(Color.Yellow).build(),
-            Coin.newCoin().color(Color.Red).build(),
-            Coin.newCoin().color(Color.Red).build(),
-            Coin.newCoin().color(Color.Red).build(),
-            Coin.newCoin().color(Color.Red).build()
-        };
-
-        assertThat(gameService.countVerticallyColorSuit(coins, Color.Red)).isEqualTo(4);
-    }
-
-    @Test
-    public void should_count_a_suit_of_2_coins(){
-        Coin[] coins = new Coin[]{
-            Coin.newCoin().color(Color.Yellow).build(),
-            Coin.newCoin().color(Color.Red).build(),
-            Coin.newCoin().color(Color.Yellow).build(),
-            Coin.newCoin().color(Color.Red).build(),
-            Coin.newCoin().color(Color.Red).build()
-        };
-
-        assertThat(gameService.countVerticallyColorSuit(coins, Color.Red)).isEqualTo(2);
-    }
-
     @Test
     public void should_detect_a_winner_horizontally(){
         Game game  = new Game();
@@ -66,7 +39,35 @@ public class GameServiceTest {
                 .color(Color.Red)
                 .build();
 
-        assertThat(gameService.checkVerticallyForAGivenColor(game, Color.Red)).isTrue();
+        assertThat(gameService.checkHorizontallyForAGivenColor(game, Color.Red)).isTrue();
+    }
+
+    @Test
+    public void should_detect_a_winner_horizontally_2(){
+        Game game  = new Game();
+
+        game.getGrid()[14][5] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        game.getGrid()[14][6] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        game.getGrid()[14][7] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        game.getGrid()[14][8] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        game.getGrid()[14][9] = Coin.newCoin()
+                .color(Color.Yellow)
+                .build();
+
+
+        assertThat(gameService.checkHorizontallyForAGivenColor(game, Color.Red)).isTrue();
     }
 
     @Test
@@ -93,6 +94,53 @@ public class GameServiceTest {
                 .color(Color.Red)
                 .build();
 
+        assertThat(gameService.checkHorizontallyForAGivenColor(game, Color.Red)).isFalse();
+    }
+
+    @Test
+    public void should_detect_a_winner_vertically(){
+        Game game  = new Game();
+
+        game.getGrid()[10][5] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        game.getGrid()[11][5] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        game.getGrid()[12][5] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        game.getGrid()[13][5] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        assertThat(gameService.checkVerticallyForAGivenColor(game, Color.Red)).isTrue();
+    }
+
+    @Test
+    public void should_not_detect_a_winner_vertically(){
+        Game game  = new Game();
+
+        game.getGrid()[10][5] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        game.getGrid()[11][5] = Coin.newCoin()
+                .color(Color.Yellow)
+                .build();
+
+        game.getGrid()[12][5] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        game.getGrid()[13][5] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
         assertThat(gameService.checkVerticallyForAGivenColor(game, Color.Red)).isFalse();
     }
+
 }

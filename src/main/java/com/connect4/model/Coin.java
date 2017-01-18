@@ -1,12 +1,5 @@
 package com.connect4.model;
 
-import groovy.transform.builder.Builder;
-import lombok.Getter;
-import lombok.Setter;
-
-@Builder
-@Getter
-@Setter
 public class Coin {
     private Color color;
 
@@ -19,6 +12,10 @@ public class Coin {
 
     public static Builder newCoin() {
         return new Builder();
+    }
+
+    public Color getColor() {
+        return color;
     }
 
     public static final class Builder {
