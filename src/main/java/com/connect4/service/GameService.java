@@ -5,8 +5,6 @@ import com.connect4.model.Color;
 import com.connect4.model.Game;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-
 @Service
 public class GameService {
 
@@ -61,14 +59,29 @@ public class GameService {
                 Coin coin = game.getGrid()[i][j];
                 if(coin != null && coin.getColor().name().equals(color.name())){
                     Integer rightTop = checkRightTop(game.getGrid(), color, i ,j);
-                    Integer bottomLeft = checkBottomLeft(game.getGrid(),color, i ,j);
+                    Integer bottomLeft = checkLeftBottom(game.getGrid(),color, i ,j);
                     if(rightTop + bottomLeft + 1 >= WINNING_SUIT){
                         return true;
                     }
                 }
             }
         }
+        return false;
+    }
 
+    public Boolean checkLeftTransversal(Game game, Color color) {
+        for(int i = 0; i < game.getGrid().length; i++){
+            for(int j = 0; j < game.getGrid()[i].length; j++){
+                Coin coin = game.getGrid()[i][j];
+                if(coin != null && coin.getColor().name().equals(color.name())){
+                    Integer leftTop = checkLeftTop(game.getGrid(), color, i ,j);
+                    Integer rightBottom = checkRightBottom(game.getGrid(),color, i ,j);
+                    if(leftTop + rightBottom + 1 >= WINNING_SUIT){
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
@@ -86,7 +99,7 @@ public class GameService {
         return counter;
     }
 
-    private Integer checkBottomLeft(Coin[][] grid, Color color, int i, int j) {
+    private Integer checkLeftBottom(Coin[][] grid, Color color, int i, int j) {
         Integer counter = 0;
         i--;
         j++;
@@ -100,7 +113,35 @@ public class GameService {
         return counter;
     }
 
-    private boolean areIndexesInBound(int i, int j) {
+    private Integer checkLeftTop(Coin[][] grid, Color color, int i, int j) {
+        Integer counter = 0;
+        i--;
+        j--;
+
+        while(grid[i][j] != null && areIndexesInBound(i, j) && color.name().equals(grid[i][j].getColor().name())){
+            counter++;
+            i--;
+            j--;
+        }
+
+        return counter;
+    }
+
+    private Integer checkRightBottom(Coin[][] grid, Color color, int i, int j) {
+        Integer counter = 0;
+        i++;
+        j++;
+
+        while(grid[i][j] != null && areIndexesInBound(i, j) && color.name().equals(grid[i][j].getColor().name())){
+            counter++;
+            i++;
+            j++;
+        }
+
+        return counter;
+    }
+
+    private Boolean areIndexesInBound(int i, int j) {
         return i < Game.GRID_SIZE && i >= 0 && j < Game.GRID_SIZE && j >= 0;
     }
 }
