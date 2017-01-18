@@ -3,6 +3,7 @@ package com.connect4.service;
 import com.connect4.Connect4;
 import com.connect4.model.Coin;
 import com.connect4.model.Color;
+import com.connect4.model.Coordinate;
 import com.connect4.model.Game;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,7 +42,6 @@ public class GameServiceTest {
 
         assertThat(gameService.checkHorizontally(game, Color.Red)).isTrue();
     }
-
     @Test
     public void should_detect_a_winner_horizontally_2(){
         Game game  = new Game();
@@ -69,7 +69,6 @@ public class GameServiceTest {
 
         assertThat(gameService.checkHorizontally(game, Color.Red)).isTrue();
     }
-
     @Test
     public void should_not_detect_a_winner_horizontally(){
         Game game  = new Game();
@@ -121,7 +120,6 @@ public class GameServiceTest {
 
         assertThat(gameService.checkVertically(game, Color.Red)).isTrue();
     }
-
     @Test
     public void should_not_detect_a_winner_vertically(){
         Game game  = new Game();
@@ -169,7 +167,6 @@ public class GameServiceTest {
 
         assertThat(gameService.checkRightTransversal(game, Color.Red)).isTrue();
     }
-
     @Test
     public void should_detect_a_winner_right_transversal_2(){
         Game game  = new Game();
@@ -208,7 +205,6 @@ public class GameServiceTest {
 
         assertThat(gameService.checkRightTransversal(game, Color.Red)).isTrue();
     }
-
     @Test
     public void should_not_detect_a_winner_right_transversal(){
         Game game  = new Game();
@@ -244,7 +240,6 @@ public class GameServiceTest {
 
         assertThat(gameService.checkLeftTransversal(game, Color.Red)).isTrue();
     }
-
     @Test
     public void should_detect_a_winner_left_transversal_2(){
         Game game  = new Game();
@@ -279,7 +274,6 @@ public class GameServiceTest {
 
         assertThat(gameService.checkLeftTransversal(game, Color.Red)).isTrue();
     }
-
     @Test
     public void should_not_detect_a_winner_left_transversal_2(){
         Game game  = new Game();
@@ -309,5 +303,60 @@ public class GameServiceTest {
                 .build();
 
         assertThat(gameService.checkLeftTransversal(game, Color.Red)).isFalse();
+    }
+
+
+    @Test
+    public void should_return_an_empty_position_for_a_given_column(){
+        Game game  = new Game();
+
+        game.getGrid()[14][7] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        Coordinate coordinate = gameService.getEmptyPositionAtColumn(game, 7);
+        assertThat(coordinate.getX()).isEqualTo(13);
+        assertThat(coordinate.getY()).isEqualTo(7);
+    }
+
+    @Test
+    public void should_return_an_empty_position_for_a_given_column_2(){
+        Game game  = new Game();
+
+        game.getGrid()[14][7] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        game.getGrid()[13][7] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        Coordinate coordinate = gameService.getEmptyPositionAtColumn(game, 7);
+        assertThat(coordinate.getX()).isEqualTo(12);
+        assertThat(coordinate.getY()).isEqualTo(7);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void should_throw_a_runtime_exception_when_a_column_is_full(){
+        Game game  = new Game();
+        int column = 5;
+
+        game.getGrid()[0][column] = Coin.newCoin().build();
+        game.getGrid()[1][column] = Coin.newCoin().build();
+        game.getGrid()[2][column] = Coin.newCoin().build();
+        game.getGrid()[3][column] = Coin.newCoin().build();
+        game.getGrid()[4][column] = Coin.newCoin().build();
+        game.getGrid()[5][column] = Coin.newCoin().build();
+        game.getGrid()[6][column] = Coin.newCoin().build();
+        game.getGrid()[7][column] = Coin.newCoin().build();
+        game.getGrid()[8][column] = Coin.newCoin().build();
+        game.getGrid()[9][column] = Coin.newCoin().build();
+        game.getGrid()[10][column] = Coin.newCoin().build();
+        game.getGrid()[11][column] = Coin.newCoin().build();
+        game.getGrid()[12][column] = Coin.newCoin().build();
+        game.getGrid()[13][column] = Coin.newCoin().build();
+        game.getGrid()[14][column] = Coin.newCoin().build();
+
+        gameService.getEmptyPositionAtColumn(game, column);
     }
 }

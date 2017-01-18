@@ -2,6 +2,7 @@ package com.connect4.service;
 
 import com.connect4.model.Coin;
 import com.connect4.model.Color;
+import com.connect4.model.Coordinate;
 import com.connect4.model.Game;
 import org.springframework.stereotype.Service;
 
@@ -85,6 +86,17 @@ public class GameService {
         return false;
     }
 
+    public Coordinate getEmptyPositionAtColumn(Game game, int columnNumber) {
+
+        for(int i = game.getGrid().length - 1 ; i >= 0; i--){
+            if(game.getGrid()[i][columnNumber] == null){
+                return Coordinate.newCoordinate().x(i).y(columnNumber).build();
+            }
+        }
+
+        throw new RuntimeException("Game Id: " + game.getGameId() + ". Grid is full at column: " + columnNumber);
+    }
+
     private Integer checkRightTop(Coin[][] grid, Color color, int i, int j) {
         Integer counter = 0;
         i++;
@@ -140,6 +152,7 @@ public class GameService {
 
         return counter;
     }
+
 
     private Boolean areIndexesInBound(int i, int j) {
         return i < Game.GRID_SIZE && i >= 0 && j < Game.GRID_SIZE && j >= 0;
