@@ -167,6 +167,45 @@ public class GameServiceTest {
     }
 
     @Test
+    public void should_detect_a_winner_right_transversal_2(){
+        Game game  = new Game();
+
+        game.getGrid()[9][3] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        game.getGrid()[8][4] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        game.getGrid()[7][5] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        game.getGrid()[6][6] = Coin.newCoin()
+                .color(Color.Yellow)
+                .build();
+
+        game.getGrid()[5][7] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        game.getGrid()[4][8] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        game.getGrid()[3][9] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        game.getGrid()[2][10] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        assertThat(gameService.checkRightTransversal(game, Color.Red)).isTrue();
+    }
+
+    @Test
     public void should_not_detect_a_winner_right_transversal(){
         Game game  = new Game();
 
