@@ -39,7 +39,7 @@ public class GameServiceTest {
                 .color(Color.Red)
                 .build();
 
-        assertThat(gameService.checkHorizontallyForAGivenColor(game, Color.Red)).isTrue();
+        assertThat(gameService.checkHorizontally(game, Color.Red)).isTrue();
     }
 
     @Test
@@ -67,7 +67,7 @@ public class GameServiceTest {
                 .build();
 
 
-        assertThat(gameService.checkHorizontallyForAGivenColor(game, Color.Red)).isTrue();
+        assertThat(gameService.checkHorizontally(game, Color.Red)).isTrue();
     }
 
     @Test
@@ -94,7 +94,7 @@ public class GameServiceTest {
                 .color(Color.Red)
                 .build();
 
-        assertThat(gameService.checkHorizontallyForAGivenColor(game, Color.Red)).isFalse();
+        assertThat(gameService.checkHorizontally(game, Color.Red)).isFalse();
     }
 
     @Test
@@ -117,7 +117,7 @@ public class GameServiceTest {
                 .color(Color.Red)
                 .build();
 
-        assertThat(gameService.checkVerticallyForAGivenColor(game, Color.Red)).isTrue();
+        assertThat(gameService.checkVertically(game, Color.Red)).isTrue();
     }
 
     @Test
@@ -140,7 +140,41 @@ public class GameServiceTest {
                 .color(Color.Red)
                 .build();
 
-        assertThat(gameService.checkVerticallyForAGivenColor(game, Color.Red)).isFalse();
+        assertThat(gameService.checkVertically(game, Color.Red)).isFalse();
+    }
+
+    @Test
+    public void should_detect_a_winner_right_transversal(){
+        Game game  = new Game();
+
+        game.getGrid()[9][3] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        game.getGrid()[8][4] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        game.getGrid()[7][5] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        game.getGrid()[6][6] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        assertThat(gameService.checkRightTransversal(game, Color.Red)).isTrue();
+    }
+
+    @Test
+    public void should_not_detect_a_winner_right_transversal(){
+        Game game  = new Game();
+
+        game.getGrid()[9][3] = Coin.newCoin()
+                .color(Color.Red)
+                .build();
+
+        assertThat(gameService.checkRightTransversal(game, Color.Red)).isFalse();
     }
 
 }
