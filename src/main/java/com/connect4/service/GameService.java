@@ -1,15 +1,22 @@
 package com.connect4.service;
 
-import com.connect4.model.Coin;
-import com.connect4.model.Color;
-import com.connect4.model.Coordinate;
-import com.connect4.model.Game;
+import com.connect4.model.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 
 @Service
 public class GameService {
 
     public static Integer WINNING_SUIT = 4;
+
+    private Games games;
+
+    @Autowired
+    public GameService(Games games) {
+        this.games = games;
+    }
 
     public Boolean checkHorizontally(Game game, Color color) {
         Integer counter = 0;
@@ -97,6 +104,19 @@ public class GameService {
         throw new RuntimeException("Game Id: " + game.getGameId() + ". Grid is full at column: " + columnNumber);
     }
 
+    public Game newGame(Player player){
+
+        ArrayList<Player> players = new ArrayList<>();
+        players.add(player);
+
+        Game game = new Game();
+        game.setPlayers(players);
+
+        games.getGames().put(game.getGameId(), game);
+
+        return games.getGames().get(game.getGameId());
+    }
+
     private Integer checkRightTop(Coin[][] grid, Color color, int i, int j) {
         Integer counter = 0;
         i++;
@@ -152,7 +172,6 @@ public class GameService {
 
         return counter;
     }
-
 
     private Boolean areIndexesInBound(int i, int j) {
         return i < Game.GRID_SIZE && i >= 0 && j < Game.GRID_SIZE && j >= 0;

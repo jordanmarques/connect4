@@ -1,10 +1,7 @@
 package com.connect4.service;
 
 import com.connect4.Connect4;
-import com.connect4.model.Coin;
-import com.connect4.model.Color;
-import com.connect4.model.Coordinate;
-import com.connect4.model.Game;
+import com.connect4.model.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -358,5 +355,13 @@ public class GameServiceTest {
         game.getGrid()[14][column] = Coin.newCoin().build();
 
         gameService.getEmptyPositionAtColumn(game, column);
+    }
+
+    @Test
+    public void should_return_a_game_id_when_a_game_is_created(){
+        Game game = gameService.newGame(new Player());
+
+        assertThat(game).isNotNull();
+        assertThat(game.getGameId()).isNotNull();
     }
 }

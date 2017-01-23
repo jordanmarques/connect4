@@ -13,7 +13,11 @@ public class Games {
         this.games = new HashMap<>();
     }
 
-    public Game addGame(Game game){
-        return this.games.put(game.getGameId(), game);
+    public Map<String, Game> getGames() {
+        return games;
+    }
+
+    public void setGames(Map<String, Game> games) {
+        this.games = games;
     }
 }
