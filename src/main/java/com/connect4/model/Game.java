@@ -23,6 +23,10 @@ public class Game {
         this.players = players;
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
     public Coin[][] getGrid() {
         return grid;
     }
