@@ -99,7 +99,7 @@ public class GridCheckerService {
       i++;
       j--;
 
-      while(grid[i][j] != null && areIndexesInBound(i, j) && color.name().equals(grid[i][j].getColor().name())){
+      while(areIndexesInBound(i, j) && grid[i][j] != null && color.name().equals(grid[i][j].getColor().name())){
          counter++;
          i++;
          j--;
@@ -113,7 +113,7 @@ public class GridCheckerService {
       i--;
       j++;
 
-      while(grid[i][j] != null && areIndexesInBound(i, j) && color.name().equals(grid[i][j].getColor().name())){
+      while(areIndexesInBound(i, j) && grid[i][j] != null && color.name().equals(grid[i][j].getColor().name())){
          counter++;
          i--;
          j++;
@@ -127,7 +127,7 @@ public class GridCheckerService {
       i--;
       j--;
 
-      while(grid[i][j] != null && areIndexesInBound(i, j) && color.name().equals(grid[i][j].getColor().name())){
+      while(areIndexesInBound(i, j) && grid[i][j] != null  && color.name().equals(grid[i][j].getColor().name())){
          counter++;
          i--;
          j--;
@@ -141,7 +141,7 @@ public class GridCheckerService {
       i++;
       j++;
 
-      while(grid[i][j] != null && areIndexesInBound(i, j) && color.name().equals(grid[i][j].getColor().name())){
+      while(areIndexesInBound(i, j) && grid[i][j] != null && color.name().equals(grid[i][j].getColor().name())){
          counter++;
          i++;
          j++;

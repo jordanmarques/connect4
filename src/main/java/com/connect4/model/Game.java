@@ -12,6 +12,7 @@ public class Game {
     private Coin[][] grid;
     private State state;
     private List<Player> players;
+    private Coordinate lastCoordinate;
 
     public Game() {
         this.gameId = UUID.randomUUID().toString();
@@ -22,9 +23,15 @@ public class Game {
     public void setPlayers(List<Player> players) {
         this.players = players;
     }
-
     public List<Player> getPlayers() {
         return players;
+    }
+
+    public State getState() {
+        return state;
+    }
+    public void setState(State state) {
+        this.state = state;
     }
 
     public Coin[][] getGrid() {
@@ -33,5 +40,12 @@ public class Game {
 
     public String getGameId() {
         return gameId;
+    }
+
+    public Coordinate getLastCoordinate() {
+        return lastCoordinate;
+    }
+    public void setLastCoordinate(Coordinate lastCoordinate) {
+        this.lastCoordinate = lastCoordinate;
     }
 }
