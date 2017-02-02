@@ -51,8 +51,12 @@ public class Connect4Controller {
    }
 
    @RequestMapping(path="game/{id}/state", method = RequestMethod.GET)
-   public State getGameState(@PathVariable("id")String id){
-      return gameService.getGameState(id);
+   public GameResponse getGameState(@PathVariable("id")String id){
+      if(gameService.getGameState(id).equals(State.WINNER_FOUND)) {
+         return GameResponseBuilder.aGameResponse().isGameFinish(true).coordinate(gameService.getLastGameCoordinate(id)).state(State.WINNER_FOUND).build();
+      }else{
+         return GameResponseBuilder.aGameResponse().isGameFinish(false).coordinate(gameService.getLastGameCoordinate(id)).state(gameService.getGameState(id)).build();
+      }
    }
 
    @RequestMapping(path="game/{id}/play", method = RequestMethod.PUT)
